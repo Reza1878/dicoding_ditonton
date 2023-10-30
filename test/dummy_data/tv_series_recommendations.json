@@ -1,0 +1,24 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/t2rAdgjSh0WYbXzdOB5zTDqzdCI.jpg",
+      "id": 213713,
+      "name": "Faltu",
+      "original_language": "hi",
+      "original_name": "Faltu",
+      "overview": "What's in a name? Amidst the arid landscape of Rajasthan, a young woman with dreamy eyes struggles to prove her worth.",
+      "poster_path": "/lgyFuoXs7GvKJN0mNm7z7OMOFuZ.jpg",
+      "media_type": "tv",
+      "genre_ids": [18],
+      "popularity": 40.336,
+      "first_air_date": "2022-11-02",
+      "vote_average": 7.004,
+      "vote_count": 136,
+      "origin_country": ["IN"]
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 40
+}
