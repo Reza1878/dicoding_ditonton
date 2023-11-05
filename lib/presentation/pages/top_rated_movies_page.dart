@@ -28,6 +28,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<TopRatedMovieBloc, TopRatedMovieState>(
           builder: (context, data) {
+            print(data);
             if (data is TopRatedMovieLoading) {
               return Center(
                 child: CircularProgressIndicator(),

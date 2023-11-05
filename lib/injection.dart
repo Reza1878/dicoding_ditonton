@@ -27,9 +27,20 @@ import 'package:dicoding_ditonton/domain/usecases/save_tv_series_watchlist.dart'
 import 'package:dicoding_ditonton/domain/usecases/save_watchlist.dart';
 import 'package:dicoding_ditonton/domain/usecases/search_movies.dart';
 import 'package:dicoding_ditonton/domain/usecases/search_tv_series.dart';
+import 'package:dicoding_ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:dicoding_ditonton/presentation/bloc/now_playing_movie/now_playing_movie_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/now_playing_tv_series/now_playing_tv_series_bloc.dart';
 import 'package:dicoding_ditonton/presentation/bloc/popular_movie/popular_movie_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/popular_tv_series/popular_tv_series_bloc.dart';
 import 'package:dicoding_ditonton/presentation/bloc/top_rated_movie/top_rated_movie_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/top_rated_tv_series/top_rated_tv_series_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/tv_series_detail/tv_series_detail_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/tv_series_recommendation/tv_series_recommendation_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
+import 'package:dicoding_ditonton/presentation/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
 import 'package:dicoding_ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:dicoding_ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:dicoding_ditonton/presentation/provider/movie_search_notifier.dart';
@@ -122,6 +133,31 @@ void init() {
   locator.registerLazySingleton(() => NowPlayingMovieBloc(locator()));
   locator.registerLazySingleton(() => PopularMovieBloc(locator()));
   locator.registerLazySingleton(() => TopRatedMovieBloc(locator()));
+  locator.registerLazySingleton(() => MovieSearchBloc(locator()));
+  locator.registerLazySingleton(() => MovieDetailBloc(locator()));
+  locator.registerLazySingleton(() => MovieRecommendationBloc(locator()));
+  locator.registerLazySingleton(
+    () => WatchlistMovieBloc(
+      getWatchListStatus: locator(),
+      saveWatchlist: locator(),
+      removeWatchlist: locator(),
+      getWatchlistMovies: locator(),
+    ),
+  );
+  locator.registerLazySingleton(() => NowPlayingTvSeriesBloc(locator()));
+  locator.registerLazySingleton(() => PopularTvSeriesBloc(locator()));
+  locator.registerLazySingleton(() => TopRatedTvSeriesBloc(locator()));
+  locator.registerLazySingleton(() => TvSeriesSearchBloc(locator()));
+  locator.registerLazySingleton(() => TvSeriesDetailBloc(locator()));
+  locator.registerLazySingleton(() => TvSeriesRecommendationBloc(locator()));
+  locator.registerLazySingleton(
+    () => WatchlistTvSeriesBloc(
+      getWatchlistTVSeries: locator(),
+      getTVSeriesWatchlistStatus: locator(),
+      saveTVSeriesWatchlist: locator(),
+      removeWatchlistTVSeries: locator(),
+    ),
+  );
 
   // use case
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));

@@ -64,7 +64,6 @@ class TVSeriesRemoteDataSourceImpl extends TVSeriesRemoteDataSource {
     final response = await client.get(
       Uri.parse('$BASE_URL/discover/tv?$API_KEY&sort_by=vote_average.desc'),
     );
-
     if (response.statusCode == 200) {
       return TVSeriesResponse.fromJson(json.decode(response.body)).seriesList;
     }

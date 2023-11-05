@@ -1,9 +1,8 @@
 import 'package:dicoding_ditonton/common/constants.dart';
-import 'package:dicoding_ditonton/common/state_enum.dart';
-import 'package:dicoding_ditonton/presentation/provider/movie_search_notifier.dart';
+import 'package:dicoding_ditonton/presentation/bloc/movie_search/movie_search_bloc.dart';
 import 'package:dicoding_ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
@@ -20,9 +19,8 @@ class SearchPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
-              onSubmitted: (query) {
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+              onChanged: (query) {
+                context.read<MovieSearchBloc>().add(OnQueryChanged(query));
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -36,29 +34,39 @@ class SearchPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<MovieSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+            BlocBuilder<MovieSearchBloc, MovieSearchState>(
+              builder: (context, data) {
+                if (data is MovieSearchLoading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.Loaded) {
-                  final result = data.searchResult;
+                } else if (data is MovieSearchLoaded) {
+                  final result = data.result;
+
+                  if (result.isEmpty) {
+                    return Center(
+                      child: Text('No data available'),
+                    );
+                  }
+
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final movie = data.searchResult[index];
+                        final movie = data.result[index];
                         return MovieCard(movie);
                       },
                       itemCount: result.length,
                     ),
                   );
-                } else {
-                  return Expanded(
-                    child: Container(),
+                } else if (data is MovieSearchError) {
+                  return Center(
+                    child: Text(data.message),
                   );
                 }
+                return Expanded(
+                  child: Container(),
+                );
               },
             ),
           ],

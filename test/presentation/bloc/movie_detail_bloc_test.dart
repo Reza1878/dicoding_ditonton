@@ -1,0 +1,67 @@
+import 'package:bloc_test/bloc_test.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dicoding_ditonton/common/failure.dart';
+import 'package:dicoding_ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+import '../../dummy_data/dummy_objects.dart';
+import '../provider/movie_detail_notifier_test.mocks.dart';
+
+void main() {
+  late MockGetMovieDetail mockGetMovieDetail;
+  late MovieDetailBloc movieDetailBloc;
+
+  setUp(() {
+    mockGetMovieDetail = new MockGetMovieDetail();
+    movieDetailBloc = new MovieDetailBloc(mockGetMovieDetail);
+  });
+
+  group('MovieDetailBloc', () {
+    final tId = 1;
+
+    test(
+      'initial state should be MovieDetailInitial',
+      () {
+        expect(movieDetailBloc.state, MovieDetailInitial());
+      },
+    );
+
+    blocTest(
+      'should emit [Loading, Error] when get data is failed',
+      build: () {
+        when(mockGetMovieDetail.execute(tId))
+            .thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+        return movieDetailBloc;
+      },
+      act: (bloc) {
+        bloc.add(OnFetchMovieDetail(tId));
+      },
+      expect: () => [
+        MovieDetailLoading(),
+        MovieDetailError('Server Failure'),
+      ],
+      verify: (bloc) {
+        verify(mockGetMovieDetail.execute(tId));
+      },
+    );
+
+    blocTest(
+      'should emit [Loading, Loaded] when get data is success',
+      build: () {
+        when(mockGetMovieDetail.execute(tId))
+            .thenAnswer((_) async => Right(testMovieDetail));
+
+        return movieDetailBloc;
+      },
+      act: (bloc) => bloc.add(OnFetchMovieDetail(tId)),
+      expect: () => [
+        MovieDetailLoading(),
+        MovieDetailLoaded(testMovieDetail),
+      ],
+      verify: (bloc) {
+        verify(mockGetMovieDetail.execute(tId));
+      },
+    );
+  });
+}
