@@ -32,8 +32,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:dicoding_ditonton/injection.dart' as di;
 
-void main() {
-  di.init();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(MyApp());
 }
 
@@ -42,7 +43,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        BlocProvider(create: (_) => di.locator<NowPlayingMovieBloc>()),
+        BlocProvider(
+          create: (_) => di.locator<NowPlayingMovieBloc>(),
+          lazy: false,
+        ),
         BlocProvider(create: (_) => di.locator<TopRatedMovieBloc>()),
         BlocProvider(create: (_) => di.locator<PopularMovieBloc>()),
         BlocProvider(create: (_) => di.locator<MovieSearchBloc>()),

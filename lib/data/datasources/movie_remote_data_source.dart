@@ -20,7 +20,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   static const BASE_URL = 'https://api.themoviedb.org/3';
 
   final http.Client client;
-
   MovieRemoteDataSourceImpl({required this.client});
 
   @override
