@@ -1,13 +1,16 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dicoding_ditonton/common/failure.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_tv_series_recommendations.dart';
 import 'package:dicoding_ditonton/presentation/bloc/tv_series_recommendation/tv_series_recommendation_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../provider/tv_series_detail_notifier_test.mocks.dart';
+import 'tc_series_recommendation_bloc_test.mocks.dart';
 
+@GenerateMocks([GetTVSeriesRecommendations])
 void main() {
   late MockGetTVSeriesRecommendations getTVSeriesRecommendations;
   late TvSeriesRecommendationBloc tvSeriesRecommendationBloc;

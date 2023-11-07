@@ -1,14 +1,24 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dicoding_ditonton/common/failure.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_watchlist_movies.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_watchlist_status.dart';
+import 'package:dicoding_ditonton/domain/usecases/remove_watchlist.dart';
+import 'package:dicoding_ditonton/domain/usecases/save_watchlist.dart';
 import 'package:dicoding_ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../provider/movie_detail_notifier_test.mocks.dart';
-import '../provider/watchlist_movie_notifier_test.mocks.dart';
+import 'watchlist_move_bloc_test.mocks.dart';
 
+@GenerateMocks([
+  GetWatchListStatus,
+  SaveWatchlist,
+  RemoveWatchlist,
+  GetWatchlistMovies,
+])
 void main() {
   late MockGetWatchListStatus mockGetWatchListStatus;
   late MockSaveWatchlist mockSaveWatchlist;

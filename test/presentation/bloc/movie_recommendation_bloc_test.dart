@@ -1,13 +1,16 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dicoding_ditonton/common/failure.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_movie_recommendations.dart';
 import 'package:dicoding_ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../provider/movie_detail_notifier_test.mocks.dart';
+import 'movie_recommendation_bloc_test.mocks.dart';
 
+@GenerateMocks([GetMovieRecommendations])
 void main() {
   late MockGetMovieRecommendations mockGetMovieRecommendations;
   late MovieRecommendationBloc movieRecommendationBloc;

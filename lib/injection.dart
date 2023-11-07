@@ -44,19 +44,6 @@ import 'package:dicoding_ditonton/presentation/bloc/tv_series_recommendation/tv_
 import 'package:dicoding_ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
 import 'package:dicoding_ditonton/presentation/bloc/watchlist_movie/watchlist_movie_bloc.dart';
 import 'package:dicoding_ditonton/presentation/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
-import 'package:dicoding_ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/movie_list_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/movie_search_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/popular_tv_series_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/tv_series_detail_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/tv_series_list_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/tv_series_now_playing_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/tv_series_search_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:dicoding_ditonton/presentation/provider/watchlist_tv_series_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 import 'package:http/io_client.dart';
@@ -70,76 +57,6 @@ Future<void> init() async {
   IOClient ioClient = IOClient(client);
   locator.registerLazySingleton<http.Client>(() => ioClient);
 
-  // provider
-  locator.registerLazySingleton(
-    () => MovieListNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => MovieSearchNotifier(
-      searchMovies: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => PopularMoviesNotifier(
-      locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => TopRatedMoviesNotifier(
-      getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => WatchlistMovieNotifier(
-      getWatchlistMovies: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => TVSeriesListNotifier(
-      getNowPlayingTVSeries: locator(),
-      getPopularTVSeries: locator(),
-      getTopRatedTVSeries: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => TVSeriesDetailNotifier(
-      getTVSeriesDetail: locator(),
-      getTVSeriesRecommendations: locator(),
-      getTVSeriesWatchlistStatus: locator(),
-      removeTVSeriesWatchlist: locator(),
-      saveTVSeriesWatchlist: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => TVSeriesNowPlayingNotifier(
-      locator(),
-    ),
-  );
-  locator.registerLazySingleton(() => PopularTVSeriesNotifier(locator()));
-  locator.registerLazySingleton(() => TopRatedTVSeriesNotifier(locator()));
-  locator.registerLazySingleton(
-    () => TVSeriesSearchNotifier(
-      searchTVSeries: locator(),
-    ),
-  );
-  locator.registerLazySingleton(
-    () => WatchlistTVSeriesNotifier(
-      getWatchlistTVSeries: locator(),
-    ),
-  );
   locator.registerLazySingleton(() => NowPlayingMovieBloc(locator()));
   locator.registerLazySingleton(() => PopularMovieBloc(locator()));
   locator.registerLazySingleton(() => TopRatedMovieBloc(locator()));

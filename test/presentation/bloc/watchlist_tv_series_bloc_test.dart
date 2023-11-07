@@ -2,14 +2,24 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dicoding_ditonton/common/failure.dart';
 import 'package:dicoding_ditonton/data/models/tv_series_detail_model.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_tv_series_watchlist_status.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_watchlist_tv_series.dart';
+import 'package:dicoding_ditonton/domain/usecases/remove_tv_series_watchlist.dart';
+import 'package:dicoding_ditonton/domain/usecases/save_tv_series_watchlist.dart';
 import 'package:dicoding_ditonton/presentation/bloc/watchlist_tv_series/watchlist_tv_series_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../provider/tv_series_detail_notifier_test.mocks.dart';
-import '../provider/watchlist_tv_series_notifier_test.mocks.dart';
+import 'watchlist_tv_series_bloc_test.mocks.dart';
 
+@GenerateMocks([
+  GetWatchlistTVSeries,
+  GetTVSeriesWatchlistStatus,
+  SaveTVSeriesWatchlist,
+  RemoveTVSeriesWatchlist
+])
 void main() {
   late MockGetWatchlistTVSeries getWatchlistTVSeries;
   late MockGetTVSeriesWatchlistStatus getTVSeriesWatchlistStatus;

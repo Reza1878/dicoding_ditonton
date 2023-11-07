@@ -1,13 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:dicoding_ditonton/common/failure.dart';
+import 'package:dicoding_ditonton/domain/usecases/get_now_playing_movies.dart';
 import 'package:dicoding_ditonton/presentation/bloc/now_playing_movie/now_playing_movie_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../dummy_data/dummy_objects.dart';
-import '../provider/movie_list_notifier_test.mocks.dart';
+import 'now_playing_movie_bloc_test.mocks.dart';
 
+@GenerateMocks([GetNowPlayingMovies])
 void main() {
   late MockGetNowPlayingMovies mockGetNowPlayingMovies;
   late NowPlayingMovieBloc nowPlayingMovieBloc;
